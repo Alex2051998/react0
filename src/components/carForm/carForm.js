@@ -1,12 +1,34 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {useForm} from "react-hook-form";
+import {carService} from "../../services/car.service";
 
-const CarForm = () => {
-    const {register, reset, handleSubmit} = useForm();
+const CarForm = ({setNewCar, carForUpdate, setUpdateCar}) => {
+    const {register, reset, handleSubmit, setValue} = useForm();
 
-    const submit = (data) => {
-        console.log(data);
+
+    useEffect(() => {
+        if(carForUpdate){
+            const {model, price, year} = carForUpdate;
+            setValue('model', model);
+            setValue('price', price);
+            setValue('year', year);
+        }
+    },[carForUpdate])
+
+    const submit = async (car) => {
+        if (carForUpdate){
+            const {data} = await carService.updateById(carForUpdate.id, car);
+            setUpdateCar(data);
+            reset();
+
+        }else{
+            const {data} = await carService.create(car);
+            setNewCar(data);
+            reset();
+        }
+
     }
+
     return (
         <form onSubmit={handleSubmit(submit)}>
             <div>
@@ -18,7 +40,7 @@ const CarForm = () => {
             <div>
                 <lable>Year: <input type="text" {...register('year')}/></lable>
             </div>
-            <button>SAVE</button>
+            <button>{carForUpdate ? 'Update' : 'Create'}</button>
         </form>
     );
 };
