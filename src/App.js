@@ -1,11 +1,14 @@
 import './App.css';
+import {CountClick, ShowCount} from "./components";
 
 function App() {
-  return (
-    <div>
-      Hello
-    </div>
-  );
+    return (
+        <div>
+            <ShowCount/>
+            <hr/>
+            <CountClick/>
+        </div>
+    );
 }
 
 export default App;
