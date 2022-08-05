@@ -10,7 +10,8 @@ const initialState = {
     genresByMovi: null,
     poster: null,
     page: null,
-    endPage: null
+    endPage: null,
+    searchMovi:[]
 
 };
 
@@ -46,6 +47,14 @@ const getByIdGenre = createAsyncThunk(
     }
 );
 
+const searchMovi = createAsyncThunk(
+    'moviSlice/searchMovi',
+    async (moviName) => {
+        const {data} = await moviService.searchMovi(moviName);
+        return data;
+    }
+);
+
 const moviSlice = createSlice({
     name: 'moviSlice',
     initialState,
@@ -76,6 +85,9 @@ const moviSlice = createSlice({
             .addCase(getByIdGenre.fulfilled, (state, action) => {
                 state.movies = action.payload.results;
             })
+            .addCase(searchMovi.fulfilled, (state, action) => {
+                state.searchMovi = action.payload.results;
+            })
 
 });
 
@@ -87,7 +99,8 @@ const moviAction = {
     getAllGenres,
     getPoster,
     getByIdMovi,
-    getByIdGenre
+    getByIdGenre,
+    searchMovi
 };
 
 export {

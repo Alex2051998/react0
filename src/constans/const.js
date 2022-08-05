@@ -4,7 +4,8 @@ const urls = {
     movies: '/discover/movie?page=',
     moviesById:'/movie',
     genre: '/genre/movie/list',
-    genreById:'/discover/movie?with_genres='
+    genreById:'/discover/movie?with_genres=',
+    searchMovi:'/search/keyword?query='
 }
 
 const IMG = 'https://image.tmdb.org/t/p/w500';

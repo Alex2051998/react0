@@ -16,6 +16,11 @@ const moviService = {
             id,
             api_key: `b0770b8b7a50b9bded90ce37b975cf51`,
         }
+    }),
+    searchMovi: (moviName) => axiosService.get(`${urls.searchMovi}${moviName}`, {
+        params: {
+            api_key: `b0770b8b7a50b9bded90ce37b975cf51`,
+        }
     })
 }
 

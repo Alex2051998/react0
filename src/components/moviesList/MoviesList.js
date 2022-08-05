@@ -10,7 +10,7 @@ const MoviesList = () => {
 
     const dispatch = useDispatch();
 
-    const {movies, page, endPage} = useSelector(state => state.moviReducer);
+    const {movies, page, endPage, searchMovi} = useSelector(state => state.moviReducer);
 
     const [query, setQuery] = useSearchParams({page:'1'});
 
@@ -35,6 +35,7 @@ const MoviesList = () => {
     return (
         <div>
             <div className={'block'}>
+                {searchMovi.map(moviSearch => <div><button onClick={() => dispatch(moviAction.getByIdMovi(moviSearch))}>{moviSearch.name}</button></div>)}
                 {movies.map(movi => <MoviesListCard key={movi.id} movi={movi}/>)}
             </div>
             <div>
