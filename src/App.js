@@ -10,8 +10,6 @@ function App() {
   return (
     <div>
         <Headers/>
-        <SearchForm/>
-
         <div>
             <Routes>
                 <Route path={'/'} element={<MoviesPage/>}/>
