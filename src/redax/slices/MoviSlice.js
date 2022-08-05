@@ -5,16 +5,27 @@ import {genreService, moviService} from "../../services";
 const initialState = {
     movies: [],
     movi: [],
+    moviId: null,
     genres: [],
     genresByMovi: null,
     poster: null,
+    page: null,
+    endPage: null
 
 };
 
 const getAll = createAsyncThunk(
     'moviSlice/getAll',
-    async () => {
-        const {data} = await moviService.getAll();
+    async ({page}) => {
+        const {data} = await moviService.getAll(page);
+        return data;
+    }
+);
+
+const getByIdMovi = createAsyncThunk(
+    'moviSlice/getByIdMovi',
+    async ({moviId}) => {
+        const {data} = await moviService.getByMoviId(moviId);
         return data;
     }
 );
@@ -27,13 +38,21 @@ const getAllGenres = createAsyncThunk(
     }
 );
 
+const getByIdGenre = createAsyncThunk(
+    'moviSlice/getByIdGenre',
+    async (id) => {
+        const {data} = await genreService.getByGenreId(id);
+        return data;
+    }
+);
+
 const moviSlice = createSlice({
     name: 'moviSlice',
     initialState,
     reducers: {
         moviActionsInfo: (state, action) => {
-            state.movi = action.payload;
-            console.log(JSON.stringify(state.movi));
+            state.moviId = action.payload;
+            console.log(JSON.stringify(state.moviId))
         },
         getPoster: (state, action) => {
             state.poster = action.payload;
@@ -44,9 +63,18 @@ const moviSlice = createSlice({
         builder
             .addCase(getAll.fulfilled, (state, action) => {
                 state.movies = action.payload.results;
+                state.page = action.payload.page;
+                state.endPage = action.payload.total_page;
             })
             .addCase(getAllGenres.fulfilled, (state, action) => {
                 state.genres = action.payload.genres;
+            })
+            .addCase(getByIdMovi.fulfilled, (state, action) => {
+                state.movi = action.payload;
+                console.log(JSON.stringify(state.movi))
+            })
+            .addCase(getByIdGenre.fulfilled, (state, action) => {
+                state.movies = action.payload.results;
             })
 
 });
@@ -57,7 +85,9 @@ const moviAction = {
     getAll,
     moviActionsInfo,
     getAllGenres,
-    getPoster
+    getPoster,
+    getByIdMovi,
+    getByIdGenre
 };
 
 export {

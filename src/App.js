@@ -9,6 +9,7 @@ function App() {
   return (
     <div>
         <Headers/>
+
         <div>
             <Routes>
                 <Route path={'/'} element={<MoviesPage/>}/>

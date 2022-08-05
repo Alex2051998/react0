@@ -3,14 +3,31 @@ import {useDispatch, useSelector} from "react-redux";
 
 import {IMG} from "../../constans";
 import './MoviInfo.css';
-import {Link} from "react-router-dom";
+import {Link, useSearchParams} from "react-router-dom";
 import {moviAction} from "../../redax";
+import {moviService} from "../../services";
 
 const MovieInfo = () => {
 
-    const {movi} = useSelector(state => state.moviReducer);
+    const {movi, moviId} = useSelector(state => state.moviReducer);
     const {original_title, overview, popularity, poster_path, release_date, vote_average} = movi;
     const dispatch = useDispatch();
+
+    const [query, setQuery] = useSearchParams();
+
+
+
+    useEffect(()=>{
+        // dispatch(moviAction.getByIdMovi(moviId))
+        if(moviId){
+            setQuery({moviId:`${moviId}`})
+            dispatch(moviAction.getByIdMovi({moviId:query.get('moviId')}))
+
+        }else {
+            dispatch(moviAction.getByIdMovi({moviId:query.get('moviId')}))
+        }
+
+    },[query])
 
 
     return (
@@ -35,5 +52,4 @@ const MovieInfo = () => {
 export
 {
     MovieInfo
-}
-    ;
+};

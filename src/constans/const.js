@@ -1,9 +1,10 @@
 const baseURL = 'https://api.themoviedb.org/3';
 
 const urls = {
-    movies: '/discover/movie?page=1',
+    movies: '/discover/movie?page=',
     moviesById:'/movie',
     genre: '/genre/movie/list',
+    genreById:'/discover/movie?with_genres='
 }
 
 const IMG = 'https://image.tmdb.org/t/p/w500';
