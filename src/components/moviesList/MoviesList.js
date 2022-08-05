@@ -35,7 +35,7 @@ const MoviesList = () => {
     return (
         <div>
             <div className={'block'}>
-                {searchMovi.map(moviSearch => <div><button onClick={() => dispatch(moviAction.getByIdMovi(moviSearch))}>{moviSearch.name}</button></div>)}
+                {searchMovi.map(moviSearch => <div><button onClick={() => dispatch(moviAction.getByIdMovi(`${moviSearch.id}`))}>{moviSearch.name}</button></div>)}
                 {movies.map(movi => <MoviesListCard key={movi.id} movi={movi}/>)}
             </div>
             <div>
