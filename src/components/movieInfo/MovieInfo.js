@@ -5,11 +5,10 @@ import {IMG} from "../../constans";
 import './MoviInfo.css';
 import {Link, useSearchParams} from "react-router-dom";
 import {moviAction} from "../../redax";
-import {moviService} from "../../services";
 
 const MovieInfo = () => {
 
-    const {movi, moviId} = useSelector(state => state.moviReducer);
+    const {movi, moviId, searchMovi} = useSelector(state => state.moviReducer);
     const {original_title, overview, popularity, poster_path, release_date, vote_average} = movi;
     const dispatch = useDispatch();
 

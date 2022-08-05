@@ -3,6 +3,7 @@ import React from 'react';
 import css from './headers.module.css'
 import {Link} from "react-router-dom";
 import {UserInfo} from "../userInfo/UserInfo";
+import {useDispatch, useSelector} from "react-redux";
 
 const Headers = () => {
     return (
